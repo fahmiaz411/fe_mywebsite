@@ -4,9 +4,13 @@ import App from './App';
 // import Props from './Components/Props';
 // import State from './Components/Props';
 
+import {UserContextProvider } from './context/userContext'
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <UserContextProvider>
+      <App />
+    </UserContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

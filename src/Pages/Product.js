@@ -6,17 +6,20 @@ import CardProduct from '../Components/Card/CardProduct'
 
 function Product() {
     const [AddProd, setAddProd] = useState();
+    const [products, setProducts] = useState(data);
     
     console.log('Component Product')
     console.log(AddProd)
 
-    // useEffect(() => {
-    //     data = [
-    //         ...data,
-    //         AddProd  
-        
-    //     ]
-    // }, [])
+    useEffect(() => {
+        if(AddProd){
+        const newProducts = [
+            ...products,
+            AddProd
+        ]
+        setProducts(newProducts)
+    }
+    },[AddProd])
     
     return (
         <Container className="mt-4" style={{backgroundColor: '#ffffff'}}>
@@ -26,9 +29,9 @@ function Product() {
                 </Col>
             </Row>
             <Row>
-                {data.map((product, index) => (
+                {products.map((product, index) => (
                     <Col md="3" key={index}>
-                        <CardProduct product= {product} />
+                        <CardProduct product={product} />
                     </Col>
                 ))}
             </Row>

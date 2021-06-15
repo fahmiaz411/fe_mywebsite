@@ -1,13 +1,21 @@
 import { Navbar, Container, Nav, Button} from 'react-bootstrap'
-import Modal from './Modals'
-import { useState } from 'react'
+import ModalLogin from './Modal/ModalLogin'
+import { useState, useContext } from 'react'
 import { NavLink } from "react-router-dom";
+import { UserContext } from '../context/userContext';
 
 function Navigasibar() {
     const [show, setShow] = useState(false);
+    const [state, dispatch] = useContext(UserContext)
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const handleLogout = () => {
+        dispatch({
+            type: 'LOGOUT'            
+        })
+    }
 
     return (
         <div>
@@ -20,11 +28,12 @@ function Navigasibar() {
                         <NavLink to="/profile" className="btn btn-light ms-1">Profile</NavLink>
                     </Nav>
                     <Nav className="ms-auto">
-                        <Button onClick={handleShow} className="btn-sm py-0 bg-secondary border-0">Login</Button>
+                        {state.isLogin === false ? <Button onClick={handleShow} className="btn-sm py-0 bg-secondary border-0">Login</Button> :
+                        <Button onClick={handleLogout} className="btn-sm py-0 bg-danger border-0">Logout</Button> }
                     </Nav>
                 </Container>
             </Navbar>
-            <Modal show={show} handleClose={handleClose}/>
+            <ModalLogin show={show} setShow={setShow} handleClose={handleClose}/>
         </div>
     )
 }
